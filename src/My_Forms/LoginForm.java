@@ -197,7 +197,10 @@ public class LoginForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_LoginActionPerformed
     //nút đăng ký
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+       this.dispose(); 
+    SignUpForm signUp = new SignUpForm();
+    signUp.setLocationRelativeTo(null);
+    signUp.setVisible(true); 
     }//GEN-LAST:event_jButton2ActionPerformed
 
     

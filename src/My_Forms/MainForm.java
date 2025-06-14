@@ -55,12 +55,12 @@ public class MainForm extends javax.swing.JFrame {
         jButtonmuontra = new javax.swing.JButton();
         jButtonthongke = new javax.swing.JButton();
         jButtontacgia = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         Panelcontainer = new javax.swing.JPanel();
         mainpanel = new javax.swing.JPanel();
         jPanel_x4 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1920, 1080));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -169,6 +169,15 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton1.setText("Đăng Xuất");
+        jButton1.setActionCommand("Đăng Xuất");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -177,30 +186,37 @@ public class MainForm extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 32, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jButtontacgia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonsach, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonnguoidung, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
-                    .addComponent(jButtonmuontra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonthongke, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(55, 55, 55)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jButtontacgia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonsach, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonnguoidung, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
+                            .addComponent(jButtonmuontra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonthongke, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(127, 127, 127)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtontacgia, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(41, 41, 41)
                 .addComponent(jButtonsach, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
+                .addGap(41, 41, 41)
                 .addComponent(jButtonnguoidung, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44)
+                .addGap(48, 48, 48)
                 .addComponent(jButtonmuontra, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47)
+                .addGap(50, 50, 50)
                 .addComponent(jButtonthongke, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(85, 85, 85))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
         );
 
         Panelcontainer.setBackground(new java.awt.Color(102, 153, 255));
@@ -228,7 +244,7 @@ public class MainForm extends javax.swing.JFrame {
             PanelcontainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelcontainerLayout.createSequentialGroup()
                 .addComponent(mainpanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 13, Short.MAX_VALUE))
         );
 
         jPanel_x4.setBackground(new java.awt.Color(255, 255, 0));
@@ -326,6 +342,15 @@ public class MainForm extends javax.swing.JFrame {
     private void jButtontacgiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtontacgiaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtontacgiaActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.dispose(); 
+    
+    // Hiển thị LoginForm
+    LoginForm login = new LoginForm();
+    login.setVisible(true);
+    login.setLocationRelativeTo(null);
+    }//GEN-LAST:event_jButton1ActionPerformed
     
     
     
@@ -367,6 +392,7 @@ public class MainForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Panelcontainer;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonmuontra;
     private javax.swing.JButton jButtonnguoidung;
     private javax.swing.JButton jButtonsach;
