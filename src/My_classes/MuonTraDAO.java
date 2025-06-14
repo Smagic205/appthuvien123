@@ -9,13 +9,14 @@ import javax.swing.table.DefaultTableModel;
 
 public class MuonTraDAO {
     private DB db = new DB();
-
+    
+    //tìm kiếm khách hàng theo id
     public DefaultTableModel timKiemKhachTheoId(String id) {
         DefaultTableModel model = new DefaultTableModel();
     model.setColumnIdentifiers(new String[]{"ID", "Họ tên", "Email", "SĐT"});
 
     String sql = "SELECT * FROM khach WHERE id = ?";
-    try (Connection conn = new DB().con(); PreparedStatement pst = conn.prepareStatement(sql)) {
+    try (Connection conn = new DB().con();PreparedStatement pst = conn.prepareStatement(sql)) {
         pst.setString(1, id);
         ResultSet rs = pst.executeQuery();
 
@@ -34,6 +35,7 @@ public class MuonTraDAO {
     return model;
     }
 
+    // tìm kiếm sách theo tên
     public DefaultTableModel timKiemSachTheoTen(String tenSach) {
         DefaultTableModel model = new DefaultTableModel();
     model.setColumnIdentifiers(new Object[]{"id sách", "tên sách", "tác giả", "năm xuất bản"});
@@ -66,7 +68,8 @@ public class MuonTraDAO {
 
     return model;
     }
-
+    
+        //mượn sách (thêm dữ liệu vào database)
     public void muonSach(int idKhach, int idSach) {
         Connection con = db.con();
     String sql = "INSERT INTO muon_tra (id_khach, id_sach, ngay_muon, tinh_trang_tra) " +
@@ -81,6 +84,7 @@ public class MuonTraDAO {
     db.offcon(con);
     }
 
+        //tra sách (thêm dữ liệu vào database)
     public void traSach(int idKhach, int idSach) {
         Connection con = db.con();
         String sql = "UPDATE muon_tra SET tinh_trang_tra = 'da_tra', ngay_tra = CURDATE() WHERE id_khach = ? AND id_sach = ? AND tinh_trang_tra = 'dang_muon'";

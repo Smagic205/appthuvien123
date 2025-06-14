@@ -212,7 +212,7 @@ public class Quanlytacgia extends javax.swing.JPanel {
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
-
+            //nút tìm kiếm
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
           try {
         int id = Integer.parseInt(jTextField1.getText());
@@ -223,7 +223,7 @@ public class Quanlytacgia extends javax.swing.JPanel {
         System.out.println("ID không hợp lệ");
     }
     }//GEN-LAST:event_jButton1ActionPerformed
-
+            //nút xóa
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
         int id = Integer.parseInt(jTextField1.getText().trim());
@@ -240,7 +240,7 @@ public class Quanlytacgia extends javax.swing.JPanel {
         e.printStackTrace();
     }
     }//GEN-LAST:event_jButton2ActionPerformed
-
+            //nút thêm
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
          String ten = jTextField2.getText();
     String ngaySinh = jTextField3.getText();
@@ -254,7 +254,7 @@ public class Quanlytacgia extends javax.swing.JPanel {
         System.out.println("Thêm thất bại");
     }
     }//GEN-LAST:event_jButton3ActionPerformed
-
+            //nút sửa
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
        try {
         int id = Integer.parseInt(jTextField1.getText());

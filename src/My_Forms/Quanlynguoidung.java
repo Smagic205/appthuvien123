@@ -283,7 +283,7 @@ public class Quanlynguoidung extends javax.swing.JPanel {
             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
+         //nút sửa 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
          int id = Integer.parseInt(jTextField4.getText());
     String ten = jTextField1.getText();
@@ -300,7 +300,7 @@ public class Quanlynguoidung extends javax.swing.JPanel {
     private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
         
     }//GEN-LAST:event_jTextField4ActionPerformed
-
+        //nút tìm kiếm
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         int id = Integer.parseInt(jTextField4.getText());
     jTable3.setModel(dao.timKiemNguoiDungTheoID(id));
@@ -309,13 +309,13 @@ public class Quanlynguoidung extends javax.swing.JPanel {
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
-
+        //nút xóa 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
        int id = Integer.parseInt(jTextField4.getText());
     dao.xoaNguoiDung(id);
     jTable3.setModel(new javax.swing.table.DefaultTableModel());
     }//GEN-LAST:event_jButton4ActionPerformed
-
+        //nút thêm
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String ten = jTextField1.getText();
     String email = jTextField2.getText();

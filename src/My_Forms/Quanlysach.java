@@ -22,6 +22,7 @@ public class Quanlysach extends javax.swing.JPanel {
         initComponents();
          loadDanhSachSach(bandanhsach);
         loadTheLoaiVaoComboBox(Comboboxtheloai);
+        //nút lọc
         jButton2.addActionListener(e -> {
             String tenTheLoai = (String) Comboboxtheloai.getSelectedItem();
 
@@ -43,7 +44,7 @@ public class Quanlysach extends javax.swing.JPanel {
                 pst = conn.prepareStatement(sqlId);
                 pst.setString(1, tenTheLoai);
                 rs = pst.executeQuery();
-
+                // kiểm tra xem thể loại có tồn tại trong kết quả truy vấn không
                 int theLoaiId = -1;
                 if (rs.next()) {
                     theLoaiId = rs.getInt("id");
@@ -84,13 +85,14 @@ public class Quanlysach extends javax.swing.JPanel {
                 ex.printStackTrace();
                 JOptionPane.showMessageDialog(null, "Lỗi khi lọc sách!");
             } finally {
+                //đảm bảo đóng tài nguyên-dù có lỗi hay không vẫn sẽ được thực hiện
                 try { if (rs != null) rs.close(); } catch (Exception ex) {}
                 try { if (pst != null) pst.close(); } catch (Exception ex) {}
                 try { if (conn != null) conn.close(); } catch (Exception ex) {}
             }
         });
 
-
+            //nút tìm kiếm
         buttontimkiem.addActionListener(e -> {
             String inputMaSach = TextFieldmasach.getText().trim();
             String inputTenSach = TextFieldtensach.getText().trim();
@@ -104,12 +106,12 @@ public class Quanlysach extends javax.swing.JPanel {
 
                 StringBuilder sql = new StringBuilder("SELECT id, ten_sach, nam_xuat_ban FROM sach WHERE 1=1");
                 List<Object> params = new ArrayList<>();
-
+                    //Nối điều kiện theo Mã sách
                 if (!inputMaSach.isEmpty()) {
                     sql.append(" AND id = ?");
-                    params.add(Integer.parseInt(inputMaSach)); // chú ý: cần try-catch nếu người dùng nhập sai kiểu
+                    params.add(Integer.parseInt(inputMaSach)); //  cần try-catch nếu người dùng nhập sai kiểu
                 }
-
+                    //Nối điều kiện theo Tên sách
                 if (!inputTenSach.isEmpty()) {
                     sql.append(" AND ten_sach LIKE ?");
                     params.add("%" + inputTenSach + "%");
@@ -117,7 +119,7 @@ public class Quanlysach extends javax.swing.JPanel {
 
                 pst = conn.prepareStatement(sql.toString());
 
-                // Gán tham số
+                // Gán vị trí và giá trị vào dấu ?
                 for (int i = 0; i < params.size(); i++) {
                     pst.setObject(i + 1, params.get(i));
                 }
@@ -147,9 +149,11 @@ public class Quanlysach extends javax.swing.JPanel {
                 try { if (conn != null) conn.close(); } catch (Exception ex) {}
             }
         });
-
+        
+        //hiển thị hình ảnh khi nhấn vào bảng tìm kiếm
         bangtimkiem.addMouseListener(new MouseAdapter() {
             @Override
+            
             public void mouseClicked(MouseEvent e) {
                 int selectedRow = bangtimkiem.getSelectedRow();
                 if (selectedRow == -1) return; // Không có dòng nào được chọn
@@ -175,7 +179,59 @@ public class Quanlysach extends javax.swing.JPanel {
                         // Load ảnh vào JLabel
                         ImageIcon icon = new ImageIcon(imagePath);
 
-                        // Resize ảnh cho vừa JLabel
+                        // thay đổi kích thước ảnh cho vừa JLabel
+                        Image img = icon.getImage().getScaledInstance(
+                                labelhinhanh.getWidth(), 
+                                labelhinhanh.getHeight(), 
+                                Image.SCALE_SMOOTH
+                        );
+                        labelhinhanh.setIcon(new ImageIcon(img));
+                    } else {
+                        labelhinhanh.setIcon(null);
+                    }
+
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    labelhinhanh.setIcon(null);
+                } finally {
+                    try { if (rs != null) rs.close(); } catch (Exception ex) {}
+                    try { if (pst != null) pst.close(); } catch (Exception ex) {}
+                    try { if (conn != null) conn.close(); } catch (Exception ex) {}
+                }
+            }
+        });
+        
+        
+        //hiển thị hình ảnh khi nhấn vào bảng danh sách
+       bandanhsach.addMouseListener(new MouseAdapter() {
+            @Override
+            
+            public void mouseClicked(MouseEvent e) {
+                int selectedRow = bandanhsach.getSelectedRow();
+                if (selectedRow == -1) return; // Không có dòng nào được chọn
+
+                // Lấy ID sách từ dòng được chọn (giả sử ID là cột đầu tiên)
+                int maSach = (int) bandanhsach.getValueAt(selectedRow, 0);
+
+                // Truy vấn mô tả (link ảnh) từ CSDL
+                Connection conn = null;
+                PreparedStatement pst = null;
+                ResultSet rs = null;
+
+                try {
+                    conn = db.con();
+                    String sql = "SELECT mo_ta FROM sach WHERE id = ?";
+                    pst = conn.prepareStatement(sql);
+                    pst.setInt(1, maSach);
+                    rs = pst.executeQuery();
+
+                    if (rs.next()) {
+                        String imagePath = rs.getString("mo_ta");
+
+                        // Load ảnh vào JLabel
+                        ImageIcon icon = new ImageIcon(imagePath);
+
+                        // thay đổi kích thước ảnh cho vừa JLabel
                         Image img = icon.getImage().getScaledInstance(
                                 labelhinhanh.getWidth(), 
                                 labelhinhanh.getHeight(), 
@@ -197,7 +253,8 @@ public class Quanlysach extends javax.swing.JPanel {
             }
         });
     }
-
+    
+    //thêm dữ liệu từ cơ sở dữ liệu vào bảng 
      public void loadDanhSachSach(JTable bandanhsach) {
         Connection conn = null;
         PreparedStatement pst = null;
@@ -239,6 +296,7 @@ public class Quanlysach extends javax.swing.JPanel {
         }
     }
 
+        //thêm thể loại vào combo box
     public void loadTheLoaiVaoComboBox(JComboBox<String> Comboboxtheloai) {
         Connection conn = null;
         PreparedStatement pst = null;

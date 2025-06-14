@@ -170,7 +170,7 @@ public class LoginForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     
     
-    //login button
+    //nút đăng nhập
     private void jButton_LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_LoginActionPerformed
         String username = jTextField_UserName.getText();
     String password = String.valueOf(jPasswordField_pass.getPassword());
@@ -179,7 +179,7 @@ public class LoginForm extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Vui lòng nhập tài khoản và mật khẩu.", "Thiếu thông tin", JOptionPane.WARNING_MESSAGE);
         return;
     }
-
+    //kiểm tra tài khoản mật khẩu 
     My_classes.Login loginHandler = new My_classes.Login();
     boolean success = loginHandler.checkLogin(username, password);
 
@@ -195,14 +195,12 @@ public class LoginForm extends javax.swing.JFrame {
     }
        
     }//GEN-LAST:event_jButton_LoginActionPerformed
-
+    //nút đăng ký
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

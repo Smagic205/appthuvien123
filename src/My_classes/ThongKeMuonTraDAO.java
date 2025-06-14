@@ -7,10 +7,7 @@ import javax.swing.table.DefaultTableModel;
 public class ThongKeMuonTraDAO {
     private DB db = new DB();
 
-    /**
-     *
-     * @return
-     */
+    //hàm lấy danh sách mượn trả 
     public DefaultTableModel layDanhSachMuonTra() {
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(new String[]{"Mã mượn", "Tên người mượn", "Tên sách", "Tình trạng"});
@@ -19,7 +16,7 @@ public class ThongKeMuonTraDAO {
              "FROM muon_tra mt " +
              "JOIN khach kh ON mt.id_khach = kh.id " +
              "JOIN sach s ON mt.id_sach = s.id " +
-             "ORDER BY mt.mamuon ASC";
+             "ORDER BY mt.mamuon ASC";   // sắp xếp theo mã mượn
 
         try (Connection conn = db.con();
              PreparedStatement pst = conn.prepareStatement(sql);
@@ -40,7 +37,7 @@ public class ThongKeMuonTraDAO {
 
         return model;
     }
-    
+    //hàm cập nhập danh sách (dùng cho nút cập nhập)
     public DefaultTableModel capnhapDanhSachMuonTra() {
     DefaultTableModel model = new DefaultTableModel(
         new Object[]{"Mã mượn", "Tên người mượn", "Tên sách", "Tình trạng"}, 0);

@@ -105,7 +105,7 @@ public class Thongkemuontra extends javax.swing.JPanel {
                 .addGap(22, 22, 22))
         );
     }// </editor-fold>//GEN-END:initComponents
-
+            //nút cập nhập
     private void buttoncapnhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttoncapnhapActionPerformed
         ThongKeMuonTraDAO dao = new ThongKeMuonTraDAO();
     
