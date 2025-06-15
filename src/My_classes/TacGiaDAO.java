@@ -1,6 +1,7 @@
 
 package My_classes;
 import java.sql.*;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 public class TacGiaDAO {
@@ -43,9 +44,14 @@ public class TacGiaDAO {
             ps.setString(1, tg.getTenTacGia());
             ps.setString(2, tg.getNgaySinh());
             ps.setString(3, tg.getQuocTich());
-            return ps.executeUpdate() > 0;
+            int rowsAffected = ps.executeUpdate();
+           if (rowsAffected > 0) {
+            JOptionPane.showMessageDialog(null, "Thêm tác giả thành công!");
+            return true;
+        }
         } catch (Exception e) {
             e.printStackTrace();
+             JOptionPane.showMessageDialog(null, "Thêm tác giả thất bại: " + e.getMessage());
         }
         return false;
     }
@@ -58,9 +64,14 @@ public class TacGiaDAO {
             ps.setString(2, tg.getNgaySinh());
             ps.setString(3, tg.getQuocTich());
             ps.setInt(4, tg.getId());
-            return ps.executeUpdate() > 0;
+            int rowsAffected = ps.executeUpdate();
+           if (rowsAffected > 0) {
+            JOptionPane.showMessageDialog(null, "sửa tác giả thành công!");
+            return true;
+        }
         } catch (Exception e) {
             e.printStackTrace();
+             JOptionPane.showMessageDialog(null, "sửa tác giả thất bại: " + e.getMessage());
         }
         return false;
     }
@@ -71,9 +82,16 @@ public class TacGiaDAO {
         try (Connection conn = db.con(); 
           PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, id);
-            return ps.executeUpdate() > 0;
+           int rowsAffected = ps.executeUpdate();
+        if (rowsAffected > 0) {
+            JOptionPane.showMessageDialog(null, "Xóa tác giả thành công!");
+            return true;
+        } else {
+            JOptionPane.showMessageDialog(null, "Không tìm thấy tác giả để xóa.");
+        }
         } catch (Exception e) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Xóa tác giả thất bại vì tác giả vẫn còn sách " );
         }
         return false;
     }

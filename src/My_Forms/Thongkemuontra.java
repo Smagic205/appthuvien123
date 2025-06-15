@@ -29,7 +29,7 @@ public class Thongkemuontra extends javax.swing.JPanel {
         jTable1 = new javax.swing.JTable();
         buttoncapnhap = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(255, 255, 255));
+        setBackground(new java.awt.Color(153, 255, 255));
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 255));
         jPanel1.setForeground(new java.awt.Color(51, 153, 255));

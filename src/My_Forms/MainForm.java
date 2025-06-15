@@ -19,7 +19,9 @@ public class MainForm extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         
         displayImage();
-        
+        anhmain();
+        anhlogo();
+                
         cl=new CardLayout();
         Panelcontainer.setLayout(cl);
         Panelcontainer.add(mainpanel,"panelchinh");
@@ -33,13 +35,25 @@ public class MainForm extends javax.swing.JFrame {
     public void displayImage(){
         // lay anh
         ImageIcon logo_haui=new ImageIcon(getClass().getResource("/images/Haui_logo.jpg"));
-        Image logo= logo_haui.getImage().getScaledInstance(jLabel_haui_logo.getWidth(), jLabel_haui_logo.getHeight(),Image.SCALE_SMOOTH);
-        jLabel_haui_logo.setIcon(new ImageIcon(logo));
+        Image logo= logo_haui.getImage().getScaledInstance(jButton_haui_logo.getWidth(), jButton_haui_logo.getHeight(),Image.SCALE_SMOOTH);
+        jButton_haui_logo.setIcon(new ImageIcon(logo));
           
     }
     
-    
-    
+    public void anhmain(){
+        // lay anh
+        ImageIcon logo_haui=new ImageIcon(getClass().getResource("/images/main.jpg"));
+        Image logo= logo_haui.getImage().getScaledInstance(jLabelanh.getWidth(), jLabelanh.getHeight(),Image.SCALE_SMOOTH);
+        jLabelanh.setIcon(new ImageIcon(logo));
+          
+    }
+    public void anhlogo(){
+        // lay anh
+        ImageIcon anh=new ImageIcon(getClass().getResource("/images/logosach.jpg"));
+        Image logo= anh.getImage().getScaledInstance(jLabellogo.getWidth(), jLabellogo.getHeight(),Image.SCALE_SMOOTH);
+        jLabellogo.setIcon(new ImageIcon(logo));
+          
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -47,9 +61,9 @@ public class MainForm extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        jLabel_haui_logo = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jButton_haui_logo = new javax.swing.JButton();
         jButtonsach = new javax.swing.JButton();
         jButtonnguoidung = new javax.swing.JButton();
         jButtonmuontra = new javax.swing.JButton();
@@ -58,7 +72,10 @@ public class MainForm extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         Panelcontainer = new javax.swing.JPanel();
         mainpanel = new javax.swing.JPanel();
+        jLabelanh = new javax.swing.JLabel();
         jPanel_x4 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabellogo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -78,38 +95,42 @@ public class MainForm extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 51, 0));
         jLabel2.setText("LIBRARY");
 
+        jButton_haui_logo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_haui_logoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(51, Short.MAX_VALUE)
-                .addComponent(jLabel_haui_logo, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addContainerGap(55, Short.MAX_VALUE)
+                .addComponent(jButton_haui_logo, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addGap(17, 17, 17))))
+                        .addGap(17, 17, 17))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton_haui_logo, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addComponent(jLabel_haui_logo, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
                         .addComponent(jLabel3)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2)))
-                .addGap(22, 22, 22))
+                .addGap(35, 35, 35))
         );
 
-        jButtonsach.setText("QUẢN LÝ SÁCH");
+        jButtonsach.setText("TÌM KIẾM SÁCH");
         jButtonsach.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButtonsachMouseClicked(evt);
@@ -171,7 +192,6 @@ public class MainForm extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton1.setText("Đăng Xuất");
-        jButton1.setActionCommand("Đăng Xuất");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -204,17 +224,17 @@ public class MainForm extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(27, 27, 27)
                 .addComponent(jButtontacgia, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButtonsach, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41)
                 .addComponent(jButtonnguoidung, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
+                .addGap(49, 49, 49)
                 .addComponent(jButtonmuontra, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
+                .addGap(44, 44, 44)
                 .addComponent(jButtonthongke, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(57, 57, 57)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
         );
@@ -227,11 +247,11 @@ public class MainForm extends javax.swing.JFrame {
         mainpanel.setLayout(mainpanelLayout);
         mainpanelLayout.setHorizontalGroup(
             mainpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1109, Short.MAX_VALUE)
+            .addComponent(jLabelanh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         mainpanelLayout.setVerticalGroup(
             mainpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 616, Short.MAX_VALUE)
+            .addComponent(jLabelanh, javax.swing.GroupLayout.DEFAULT_SIZE, 616, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout PanelcontainerLayout = new javax.swing.GroupLayout(Panelcontainer);
@@ -249,15 +269,25 @@ public class MainForm extends javax.swing.JFrame {
 
         jPanel_x4.setBackground(new java.awt.Color(255, 255, 0));
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 2, 48)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 204, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Sách là chìa khóa mở cửa tri thức");
+
         javax.swing.GroupLayout jPanel_x4Layout = new javax.swing.GroupLayout(jPanel_x4);
         jPanel_x4.setLayout(jPanel_x4Layout);
         jPanel_x4Layout.setHorizontalGroup(
             jPanel_x4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel_x4Layout.createSequentialGroup()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 929, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabellogo, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel_x4Layout.setVerticalGroup(
             jPanel_x4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 147, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+            .addComponent(jLabellogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -351,6 +381,10 @@ public class MainForm extends javax.swing.JFrame {
     login.setVisible(true);
     login.setLocationRelativeTo(null);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton_haui_logoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_haui_logoActionPerformed
+        cl.show(Panelcontainer, "panelchinh");
+    }//GEN-LAST:event_jButton_haui_logoActionPerformed
     
     
     
@@ -393,14 +427,17 @@ public class MainForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Panelcontainer;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton_haui_logo;
     private javax.swing.JButton jButtonmuontra;
     private javax.swing.JButton jButtonnguoidung;
     private javax.swing.JButton jButtonsach;
     private javax.swing.JButton jButtontacgia;
     private javax.swing.JButton jButtonthongke;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel_haui_logo;
+    private javax.swing.JLabel jLabelanh;
+    private javax.swing.JLabel jLabellogo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

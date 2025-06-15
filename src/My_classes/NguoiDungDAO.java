@@ -3,6 +3,7 @@ package My_classes;
 
 
 import java.sql.*;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class NguoiDungDAO {
@@ -42,8 +43,10 @@ public class NguoiDungDAO {
             ps.setString(2, email);
             ps.setString(3, sdt);
             ps.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Thêm người dùng thành công!");
         } catch (Exception e) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Thêm người dùng thất bại: " + e.getMessage());
         }
     }
 
@@ -57,8 +60,11 @@ public class NguoiDungDAO {
             ps.setString(3, sdt);
             ps.setInt(4, id);
             ps.executeUpdate();
+            JOptionPane.showMessageDialog(null, "sửa người dùng thành công!");
         } catch (Exception e) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "sửa người dùng thất bại: " + e.getMessage());
+            
         }
     }
 
