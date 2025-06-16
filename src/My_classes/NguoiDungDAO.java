@@ -61,6 +61,7 @@ public class NguoiDungDAO {
             ps.setInt(4, id);
             ps.executeUpdate();
             JOptionPane.showMessageDialog(null, "sửa người dùng thành công!");
+            
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "sửa người dùng thất bại: " + e.getMessage());
@@ -80,4 +81,28 @@ public class NguoiDungDAO {
         }
     }
     
+     // Lấy tất cả người dùng 
+    public DefaultTableModel layTatCaNguoiDung() {
+        DefaultTableModel model = new DefaultTableModel();
+        model.setColumnIdentifiers(new String[]{"ID", "Họ tên", "Email", "Số điện thoại"});
+
+        try (Connection conn = db.con()) {
+            String sql = "SELECT * FROM khach";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                model.addRow(new Object[]{
+                    rs.getInt("id"),
+                    rs.getString("ho_ten"),
+                    rs.getString("email"),
+                    rs.getString("so_dien_thoai")
+                });
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return model;
+    }
 }

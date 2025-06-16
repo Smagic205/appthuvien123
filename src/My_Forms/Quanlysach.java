@@ -351,6 +351,7 @@ public class Quanlysach extends javax.swing.JPanel {
         jButton2 = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(153, 255, 255));
 
@@ -487,6 +488,13 @@ public class Quanlysach extends javax.swing.JPanel {
             }
         });
 
+        jButton3.setText("Sửa sách");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -529,7 +537,9 @@ public class Quanlysach extends javax.swing.JPanel {
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE))
                         .addGap(38, 38, 38))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -542,6 +552,8 @@ public class Quanlysach extends javax.swing.JPanel {
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(85, 85, 85)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -588,6 +600,89 @@ public class Quanlysach extends javax.swing.JPanel {
          new themsach().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    int selectedRow = bandanhsach.getSelectedRow();
+
+    if (selectedRow == -1) {
+        JOptionPane.showMessageDialog(this, "Vui lòng chọn sách để sửa!", "Thông báo", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    try {
+        // Lấy dữ liệu từ dòng được chọn
+        int idSach = Integer.parseInt(bandanhsach.getValueAt(selectedRow, 0).toString());
+        String tenSach = bandanhsach.getValueAt(selectedRow, 1).toString();
+        String ngayStr = bandanhsach.getValueAt(selectedRow, 2).toString(); // dạng "yyyy-01-01"
+        String tenTacGia = bandanhsach.getValueAt(selectedRow, 3).toString();
+
+        // ✅ Chuyển "2005-01-01" → 2005
+        int namXuatBan = Integer.parseInt(ngayStr.substring(0, 4));
+
+        // ✅ Tìm ID tác giả từ tên
+        int idTacGia = -1;
+        DB db = new DB();
+        Connection conn = db.con();
+        String sql = "SELECT id FROM tac_gia WHERE ten_tac_gia = ?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, tenTacGia);
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            idTacGia = rs.getInt("id");
+        } else {
+            JOptionPane.showMessageDialog(this, "Không tìm thấy tác giả: " + tenTacGia, "Lỗi", JOptionPane.ERROR_MESSAGE);
+            rs.close(); ps.close(); conn.close();
+            return;
+        }
+
+        rs.close();
+        ps.close();
+        conn.close();
+
+        // ✅ Mở form sửa sách
+        SuaSach suaForm = new SuaSach(
+            idSach, namXuatBan, tenSach, "", "", idTacGia, // bỏ qua mô tả, thể loại
+            () -> {
+                // ✅ Load lại bảng bandanhsach
+                try {
+                    DefaultTableModel model = (DefaultTableModel) bandanhsach.getModel();
+                    model.setRowCount(0);
+
+                    DB db2 = new DB();
+                    Connection conn2 = db2.con();
+                    String sql2 = "SELECT s.id, s.ten_sach, s.nam_xuat_ban, tg.ten_tac_gia "
+                                + "FROM sach s JOIN tac_gia tg ON s.id_tac_gia = tg.id";
+                    PreparedStatement ps2 = conn2.prepareStatement(sql2);
+                    ResultSet rs2 = ps2.executeQuery();
+
+                    while (rs2.next()) {
+                        int id = rs2.getInt("id");
+                        String ten = rs2.getString("ten_sach");
+                        int nam = rs2.getDate("nam_xuat_ban").toLocalDate().getYear(); // chỉ lấy năm
+                        String tacGia = rs2.getString("ten_tac_gia");
+
+                        model.addRow(new Object[]{ id, ten, nam, tacGia });
+                    }
+
+                    rs2.close();
+                    ps2.close();
+                    conn2.close();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Lỗi khi load lại bảng sách!");
+                }
+            }
+        );
+
+        suaForm.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        suaForm.setVisible(true);
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Lỗi khi mở form sửa sách: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> Comboboxtheloai;
@@ -598,6 +693,7 @@ public class Quanlysach extends javax.swing.JPanel {
     private javax.swing.JButton buttontimkiem;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

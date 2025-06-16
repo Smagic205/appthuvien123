@@ -1,98 +1,160 @@
 
 package My_classes;
 import java.sql.*;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 public class TacGiaDAO {
-     private DB db = new DB();
+    public void addAuthor(TacGia TG) {
+    String insert = "INSERT INTO tac_gia (ten_tac_gia, ngay_sinh, quoc_tich) VALUES (?, ?, ?)";
+    DB db = new DB(); // tạo đối tượng DB để kết nối
+    Connection c = null;
+    PreparedStatement ps = null;
 
-    // Tìm tác giả theo ID
-    public TacGia timTheoId(int id) {
-        TacGia tg = null;
-        String sql = "SELECT * FROM tac_gia WHERE id = ?";
-        try (Connection conn = db.con(); PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                tg = new TacGia(
-                    rs.getInt("id"),
-                    rs.getString("ten_tac_gia"),
-                    rs.getString("ngay_sinh"),
-                    rs.getString("quoc_tich")
-                );
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return tg;
-    }
+    try {
+        c = (Connection) db.con(); // lấy kết nối
+        ps = c.prepareStatement(insert);
 
-    // Hiển thị dữ liệu lên bảng
-    public void hienThiTacGia(JTable table, TacGia tg) {
-        DefaultTableModel model = (DefaultTableModel) table.getModel();
-        model.setRowCount(0); // clear
-        if (tg != null) {
-            model.addRow(new Object[]{tg.getId(), tg.getTenTacGia(), tg.getNgaySinh(), tg.getQuocTich()});
-        }
-    }
+        // Gán giá trị từ đối tượng TacGia
+        ps.setString(1, TG.getName());
+        ps.setDate(2, Date.valueOf(TG.getBirthday())); // chuyển LocalDate -> java.sql.Date
+        ps.setString(3, TG.getNationality());
 
-    // Thêm tác giả
-    public boolean themTacGia(TacGia tg) {
-        String sql = "INSERT INTO tac_gia (ten_tac_gia, ngay_sinh, quoc_tich) VALUES (?, ?, ?)";
-        try (Connection conn = db.con(); PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, tg.getTenTacGia());
-            ps.setString(2, tg.getNgaySinh());
-            ps.setString(3, tg.getQuocTich());
-            int rowsAffected = ps.executeUpdate();
-           if (rowsAffected > 0) {
-            JOptionPane.showMessageDialog(null, "Thêm tác giả thành công!");
-            return true;
-        }
-        } catch (Exception e) {
-            e.printStackTrace();
-             JOptionPane.showMessageDialog(null, "Thêm tác giả thất bại: " + e.getMessage());
-        }
-        return false;
-    }
-
-    // Sửa tác giả
-    public boolean suaTacGia(TacGia tg) {
-        String sql = "UPDATE tac_gia SET ten_tac_gia=?, ngay_sinh=?, quoc_tich=? WHERE id=?";
-        try (Connection conn = db.con(); PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, tg.getTenTacGia());
-            ps.setString(2, tg.getNgaySinh());
-            ps.setString(3, tg.getQuocTich());
-            ps.setInt(4, tg.getId());
-            int rowsAffected = ps.executeUpdate();
-           if (rowsAffected > 0) {
-            JOptionPane.showMessageDialog(null, "sửa tác giả thành công!");
-            return true;
-        }
-        } catch (Exception e) {
-            e.printStackTrace();
-             JOptionPane.showMessageDialog(null, "sửa tác giả thất bại: " + e.getMessage());
-        }
-        return false;
-    }
-
-    // Xóa tác giả
-    public boolean xoaTacGia(int id) {
-        String sql = "DELETE FROM tac_gia WHERE id = ?";
-        try (Connection conn = db.con(); 
-          PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, id);
-           int rowsAffected = ps.executeUpdate();
+        int rowsAffected = ps.executeUpdate();
         if (rowsAffected > 0) {
-            JOptionPane.showMessageDialog(null, "Xóa tác giả thành công!");
-            return true;
+            System.out.println("Thêm tác giả thành công.");
         } else {
-            JOptionPane.showMessageDialog(null, "Không tìm thấy tác giả để xóa.");
+            System.out.println("Không thể thêm tác giả.");
         }
+
+    } catch (Exception e) {
+        System.out.println("Lỗi khi thêm tác giả:");
+        e.printStackTrace();
+    } finally {
+        // Đóng kết nối và PreparedStatement
+        try {
+            if (ps != null) ps.close();
+            if (c != null) c.close();
         } catch (Exception e) {
+            System.out.println("Lỗi khi đóng kết nối:");
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Xóa tác giả thất bại vì tác giả vẫn còn sách " );
         }
-        return false;
     }
 }
+    // sửa tác giả
+    public void updateAurhor(TacGia TG){
+        String edit = "UPDATE `tac_gia` SET `ten_tac_gia`=?,`ngay_sinh`=?,`quoc_tich`=? WHERE `id`=?";
+        DB db = new DB(); // tạo đối tượng DB để kết nối
+        Connection c = null;
+        PreparedStatement ps = null;
+        try{
+            c = db.con(); // Lấy kết nối đến CSDL
+            ps = c.prepareStatement(edit);
+            
+            ps.setString(1, TG.getName());                            // tên tác giả mới
+            ps.setDate(2, Date.valueOf(TG.getBirthday()));            // ngày sinh (chuyển từ LocalDate)
+            ps.setString(3, TG.getNationality());                     // quốc tịch mới
+            ps.setInt(4, TG.getId());
+            
+            int rows = ps.executeUpdate(); // Thực thi UPDATE
+            if (rows > 0) {
+                System.out.println("Cập nhật tác giả thành công.");
+            } else {
+                System.out.println("Không tìm thấy tác giả để cập nhật.");
+            }
+        }
+        catch(Exception e){
+            System.out.println("Lỗi khi cập nhật tác giả:");
+            e.printStackTrace();
+        }
+        finally{
+            try{
+                if (ps != null) ps.close();
+                if (c != null) c.close();
+            } catch (Exception e) {
+                System.out.println("Lỗi khi đóng kết nối:");
+                e.printStackTrace();
+            }
+        }
+    }
+    // xóa tác giả
+    public void deleteAuthor(int id){
+        String sql = "DELETE FROM `tac_gia` WHERE `id` = ?";
+        DB db = new DB(); // tạo đối tượng DB để kết nối
+        Connection c = null;
+        PreparedStatement ps = null;
+        try {
+            c = db.con(); // kết nối tới CSDL
+            ps = c.prepareStatement(sql);
+
+            // Gán giá trị id vào câu lệnh SQL
+            ps.setInt(1, id);
+
+            int rows = ps.executeUpdate(); // thực hiện câu lệnh DELETE
+
+            if (rows > 0) {
+                System.out.println("Xóa tác giả thành công.");
+            } else {
+                System.out.println("Không tìm thấy tác giả để xóa.");
+            }
+
+        } catch (Exception e) {
+            System.out.println("Lỗi khi xóa tác giả:");
+            e.printStackTrace();
+        } finally {
+            // đóng tài nguyên
+            try {
+                if (ps != null) ps.close();
+                if (c != null) c.close();
+            } catch (Exception e) {
+            System.out.println("Lỗi khi đóng kết nối:");
+            e.printStackTrace();
+            }
+        } 
+    }
+    // danh sách tác giả
+    public ArrayList<TacGia> listAuthur(){
+        ArrayList<TacGia> list = new ArrayList<>();
+        DB db = new DB();
+        Connection c = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        String sql ="SELECT * FROM `tac_gia`";
+        try{
+            c = db.con(); // kết nối CSDL
+            ps = c.prepareStatement(sql);
+            rs = ps.executeQuery();
+            
+        // Duyệt từng dòng dữ liệu trong kết quả
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            String name = rs.getString("ten_tac_gia");
+            String birthday = rs.getDate("ngay_sinh").toString();
+            String nationality = rs.getString("quoc_tich");
+
+            // Tạo đối tượng TacGia và thêm vào danh sách
+            TacGia tg = new TacGia(id, name, birthday, nationality);
+            list.add(tg);
+        }
+        }
+        catch(Exception e){
+            System.out.println("Lỗi khi lấy danh sách tác giả:");
+            e.printStackTrace();
+        }
+        finally{
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (c != null) c.close();
+            } catch (Exception e) {
+                System.out.println("Lỗi khi đóng kết nối:");
+                e.printStackTrace();
+            } 
+        }
+        return list;
+    }
+    
+    
+}
+

@@ -5,55 +5,51 @@ package My_classes;
 public class TacGia {
     
     private int id;
-    private String tenTacGia;
-    private String ngaySinh;
-    private String quocTich;
+    private String name;
+    private String birthday;
+    private String nationality;
 
-    // Constructors
-    public TacGia() {} 
-    
-    public TacGia(int id, String tenTacGia, String ngaySinh, String quocTich) {
-        this.id = id;
-        this.tenTacGia = tenTacGia;
-        this.ngaySinh = ngaySinh;
-        this.quocTich = quocTich;
+    public TacGia() {
     }
 
-    // Getters and Setters
-    public int getId()
-    {
+    public TacGia(int id, String name, String birthday, String nationality) {
+        this.id = id;
+        this.name = name;
+        this.birthday = birthday;
+        this.nationality = nationality;
+    }
+
+    public int getId() {
         return id;
     }
-    
-    public String getTenTacGia() 
-    { 
-        return tenTacGia;
-    }
-    
-    public String getNgaySinh() 
-    {
-        return ngaySinh;
-    }
-    
-    public String getQuocTich() 
-    {
-        return quocTich;
-    }
 
-    public void setId(int id)
-    {
+    public void setId(int id) {
         this.id = id;
     }
-    public void setTenTacGia(String tenTacGia)
-    { 
-        this.tenTacGia = tenTacGia;
+
+    public String getName() {
+        return name;
     }
-    public void setNgaySinh(String ngaySinh)
-    {
-        this.ngaySinh = ngaySinh;
+
+    public void setName(String name) {
+        this.name = name;
     }
-    public void setQuocTich(String quocTich)
-    {
-        this.quocTich = quocTich;
+
+    public String getBirthday() {
+        return birthday;
     }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getNationality() {
+        return nationality;
+    }
+
+    public void setNationality(String nationality) {
+        this.nationality = nationality;
+    }
+    
+    
 }

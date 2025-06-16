@@ -7,7 +7,7 @@ import My_classes.DB;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
+import java.sql.SQLException;
 public class themsach extends javax.swing.JFrame {
 
     
@@ -19,7 +19,7 @@ public class themsach extends javax.swing.JFrame {
     }
 
     //lớp thêm sách vào cơ sở dữ liệu 
-  private void themSachVaoCSDL() {
+   private void themSachVaoCSDL() {
     String namXuatBanStr = jTextField1.getText().trim();
     String tenSach = jTextField2.getText().trim();
     String moTa = jTextField3.getText().trim(); // mô tả = link ảnh
@@ -95,7 +95,6 @@ public class themsach extends javax.swing.JFrame {
         e.printStackTrace();
     }
 }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
