@@ -2,6 +2,7 @@
 package My_Forms;
 
 import My_classes.NguoiDungDAO;
+import javax.swing.JOptionPane;
 
 public class Quanlynguoidung extends javax.swing.JPanel {
 
@@ -351,7 +352,12 @@ public class Quanlynguoidung extends javax.swing.JPanel {
         String ten = jTextField1.getText();
     String email = jTextField2.getText();
     String sdt = jTextField3.getText();
-    dao.themNguoiDung(ten, email, sdt);
+    
+     if (ten.isEmpty() || email.isEmpty() || sdt.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Không được để trống thông tin!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+     dao.themNguoiDung(ten, email, sdt);
     }//GEN-LAST:event_jButton1ActionPerformed
         //nút làm mới 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
